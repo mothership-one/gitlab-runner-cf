@@ -19,4 +19,14 @@
 
 echo "[Entrypoint] GitLab Runner Docker Image"
 
-gitlab-runner register --non-interactive && gitlab-runner "$@"
+if [ ! -f "/home/gitlab-runner/$REGISTRATION_TOKEN" ]; then
+    echo "Register GitLab Runner"
+    if gitlab-runner register --non-interactive; then
+        echo "" > "/home/gitlab-runner/$REGISTRATION_TOKEN"
+    fi
+else
+    echo "GitLab Runner already registered"
+fi
+
+echo "Start GitLab Runner"
+gitlab-runner "$@"

@@ -23,14 +23,16 @@ RUN apt-get update -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+# Install GitLab Runner
 RUN wget -q -O "/usr/local/bin/gitlab-runner" "https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-amd64" && \
     chmod +x "/usr/local/bin/gitlab-runner" && \
     useradd --comment "GitLab Runner" --create-home "gitlab-runner" --shell "/bin/bash" && \
     echo "GitLab Runner successfully installed"
 
+# Preserve runner's data
 VOLUME ["/etc/gitlab-runner", "/home/gitlab-runner"]
 
+# init sets up the environment and launches gitlab-runner
 COPY docker-entrypoint.sh /entrypoint.sh
-
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["run", "--working-directory=/home/gitlab-runner", "--user=gitlab-runner"]

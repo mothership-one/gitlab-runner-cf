@@ -10,7 +10,7 @@ The Docker image can be run directly from Docker Hub:
 ```
 git clone "https://github.com/Cyclenerd/gitlab-runner-cf.git"
 cd gitlab-runner-cf
-cf push --docker-image cyclenerd/gitlab-runner-cf:latest
+cf push --no-start --docker-image cyclenerd/gitlab-runner-cf:latest
 ```
 
 All settings according to the [GitLab Runner help](https://docs.gitlab.com/runner/commands/README.html#gitlab-runner-register
