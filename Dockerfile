@@ -15,11 +15,11 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ###################################################################################################
 
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 RUN apt-get update -y && \
     apt-get upgrade -y && \
-    apt-get install -y ca-certificates wget nano git libwww-perl libjson-perl && \
+    apt-get install -y ca-certificates wget nano git libwww-perl libjson-perl libterm-readkey-perl zip && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
