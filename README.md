@@ -1,4 +1,4 @@
-# Docker GitLab Runner optimized for Cloud Foundry
+# GitLab Runner Docker Image optimized for Cloud Foundry
 
 A Dockerized **GitLab Runner** that automatically registers with the GitLab CI Server.
 Built and tested with **SAP Cloud Foundry**.
@@ -11,6 +11,17 @@ The Docker image can be run directly from Docker Hub:
 git clone "https://github.com/Cyclenerd/gitlab-runner-cf.git"
 cd gitlab-runner-cf
 cf push --no-start --docker-image cyclenerd/gitlab-runner-cf:latest
+```
+
+Before the GitLab Runner registers itself with the GitLab CI Server, we ask the GitLab API if a runner with the same name has already registered.
+If there is already a runner with the same name, there will be **no** new registration.
+A [GitLab Personal Access Tokens](https://gitlab.com/profile/personal_access_tokens) with Scope `api` is therefore required.
+
+### Set Variables
+
+```
+cf set-env gitlab-runner-cf API_RUNNER_URL "https://gitlab.com/api/v4/runners"
+cf set-env gitlab-runner-cf API_PRIVATE_TOKEN "xyz"
 ```
 
 All settings according to the [GitLab Runner help](https://docs.gitlab.com/runner/commands/README.html#gitlab-runner-register
@@ -26,10 +37,10 @@ cf set-env gitlab-runner-cf RUNNER_TAG_LIST "sap,cloud,shell,cf,sandbox"
 cf set-env gitlab-runner-cf RUNNER_EXECUTOR "shell"
 ```
 
-Restart:
+### Start
 
 ```
-cf restage gitlab-runner-cf
+cf start gitlab-runner-cf
 ```
 
 
