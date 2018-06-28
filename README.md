@@ -26,6 +26,13 @@ cf set-env gitlab-runner-cf RUNNER_TAG_LIST "sap,cloud,shell,cf,sandbox"
 cf set-env gitlab-runner-cf RUNNER_EXECUTOR "shell"
 ```
 
+Restart:
+
+```
+cf restage gitlab-runner-cf
+```
+
+
 ## Help 👍
 
 If you have found a bug or have any improvements, send me a pull request.
