@@ -8,18 +8,27 @@
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ###################################################################################################
-
 FROM ubuntu:18.04
 
 RUN apt-get update -y && \
     apt-get upgrade -y && \
-    apt-get install -y ca-certificates wget curl nano git libwww-perl libjson-perl libterm-readkey-perl zip && \
+    apt-get install -y ca-certificates wget curl nano git libwww-perl libjson-perl libterm-readkey-perl zip gnupg2 && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install CF CLI
+RUN wget -O cf-cli.key https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key && \
+    apt-key add cf-cli.key && \
+    echo "deb https://packages.cloudfoundry.org/debian stable main" >> /etc/apt/sources.list.d/cloudfoundry-cli.list && \
+    apt-get update -y && \
+    apt-get upgrade -y && \
+    apt-get install -y cf-cli && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
