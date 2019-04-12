@@ -41,12 +41,6 @@ echo "[Entrypoint] GitLab Runner Docker Image optimized for Cloud Foundry"
 if ! command_exists curl; then
     exit_with_failure "'curl' is needed. Please install 'curl'."
 fi
-if [ -z "$API_RUNNER_URL" ]; then
-    exit_with_failure 'API_RUNNER_URL is missing'
-fi
-if [ -z "$API_PRIVATE_TOKEN" ]; then
-    exit_with_failure 'API_PRIVATE_TOKEN is missing'
-fi
 if [ -z "$CI_SERVER_URL" ]; then
     exit_with_failure 'CI_SERVER_URL is missing'
 fi
